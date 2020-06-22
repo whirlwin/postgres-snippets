@@ -9,7 +9,7 @@ Useful queries in Postgres used for monitoring.
 
 ### Finding currently running queries
 ```sql
-SELECT * FROM pg_stat_activity
+SELECT * FROM pg_stat_activity;
 ```
 
 ### Finding row count for all user tables
