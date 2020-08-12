@@ -1,7 +1,7 @@
 # postgres-snippets
 -------------------
 
-Useful queries in Postgres used for monitoring.
+Useful queries in PostgreSQL.
 
 ----
 
