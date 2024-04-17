@@ -12,6 +12,24 @@ Useful queries in PostgreSQL.
 SELECT * FROM pg_stat_activity;
 ```
 
+### Calculate diff for all tables in a schema
+```sql
+DO $$
+    DECLARE
+        table_name text;
+        query text;
+        result text;
+    BEGIN
+        FOR table_name IN SELECT tablename FROM pg_tables WHERE schemaname = 'public'
+            LOOP
+                query := format('SELECT md5(array_agg(md5(row_to_json(t)::text))::text) AS checksum FROM %I t;', table_name);
+                EXECUTE query INTO result;
+                RAISE NOTICE 'Checksum for table %: %', table_name, result;
+            END LOOP;
+    END
+$$;
+```
+
 ### Finding row count for all user tables
 ```sql
 CREATE OR REPLACE FUNCTION count_rows(schema TEXT, tablename TEXT) RETURNS INTEGER AS
