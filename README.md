@@ -50,3 +50,20 @@ FROM information_schema.tables
 WHERE table_schema NOT IN ('pg_catalog', 'information_schema') AND table_type = 'BASE TABLE'
 
 ```
+
+### Finding all current connections
+```sql
+SELECT
+    pid,
+    usename,
+    datname,
+    application_name,
+    client_addr,
+    backend_start,
+    state,
+    state_change
+FROM
+    pg_stat_activity
+ORDER BY
+    backend_start;
+```
